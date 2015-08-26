@@ -2,6 +2,10 @@ package so.sig4j;
 
 /**
  * The enum of supported connection types.
+ *
+ * To actuate a slot by a dispatcher ({@link SlotDispatcher}) use
+ * {@link Signal#connect(SlotDispatcher, Slot)}.
+ *
  */
 public enum ConnectionType {
     /**
@@ -18,5 +22,5 @@ public enum ConnectionType {
     /**
      * The slot is actuated by the dispatcher loop.
      */
-    DISPATCHED
+    //DISPATCHED
 }
