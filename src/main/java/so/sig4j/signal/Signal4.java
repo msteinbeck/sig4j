@@ -1,0 +1,42 @@
+package so.sig4j.signal;
+
+import so.sig4j.ConnectionType;
+import so.sig4j.Signal;
+import so.sig4j.SlotDispatcher;
+import so.sig4j.Slot;
+import so.sig4j.slot.Slot4;
+
+/**
+ * A signal with 4 generic arguments.
+ *
+ * @param <T> The type of the first argument.
+ * @param <U> The type of the second argument.
+ * @param <V> The type of the third argument.
+ * @param <W> The type of the forth argument.
+ */
+public class Signal4<T, U, V, W> extends Signal {
+    public void connect(final Slot4<T, U, V, W> slot) {
+        super.connect(slot);
+    }
+
+    public void connect(final Slot4<T, U, V, W> slot,
+                        final ConnectionType type) {
+        super.connect(slot, type);
+    }
+
+    public void connect(final SlotDispatcher dispatcher,
+                        final Slot4<T, U, V, W> slot) {
+        super.connect(dispatcher, slot);
+    }
+
+    public void emit(final T t, final U u, final V v, final W w) {
+        super.emit(t, u, v, w);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    protected void actuate(final Slot slot, final Object[] args) {
+        ((Slot4<T, U, V, W>) slot).accept(
+                (T)args[0], (U)args[1], (V)args[2], (W)args[3]);
+    }
+}
