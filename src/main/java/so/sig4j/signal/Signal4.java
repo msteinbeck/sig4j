@@ -15,20 +15,33 @@ import so.sig4j.slot.Slot4;
  * @param <W> The type of the forth argument.
  */
 public class Signal4<T, U, V, W> extends Signal {
+
+    /**
+     * @see Signal#connect(Slot)
+     */
     public void connect(final Slot4<T, U, V, W> slot) {
         super.connect(slot);
     }
 
+    /**
+     * @see Signal#connect(Slot, ConnectionType)
+     */
     public void connect(final Slot4<T, U, V, W> slot,
                         final ConnectionType type) {
         super.connect(slot, type);
     }
 
+    /**
+     * @see Signal#connect(SlotDispatcher, Slot)
+     */
     public void connect(final SlotDispatcher dispatcher,
                         final Slot4<T, U, V, W> slot) {
         super.connect(dispatcher, slot);
     }
 
+    /**
+     * @see Signal#emit(Object...)
+     */
     public void emit(final T t, final U u, final V v, final W w) {
         super.emit(t, u, v, w);
     }

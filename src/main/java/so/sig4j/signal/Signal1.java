@@ -13,18 +13,30 @@ import so.sig4j.slot.Slot1;
  */
 public class Signal1<T> extends Signal {
 
+    /**
+     * @see Signal#connect(Slot)
+     */
     public void connect(final Slot1<T> slot) {
         super.connect(slot);
     }
 
+    /**
+     * @see Signal#connect(Slot, ConnectionType)
+     */
     public void connect(final Slot1<T> slot, final ConnectionType type) {
         super.connect(slot, type);
     }
 
+    /**
+     * @see Signal#connect(SlotDispatcher, Slot)
+     */
     public void connect(final SlotDispatcher dispatcher, final Slot1<T> slot) {
         super.connect(dispatcher, slot);
     }
 
+    /**
+     * @see Signal#emit(Object...)
+     */
     public void emit(final T t) {
         super.emit(t);
     }
