@@ -6,6 +6,7 @@ package so.sig4j;
  * To actuate a slot by a dispatcher ({@link SlotDispatcher}) use
  * {@link Signal#connect(SlotDispatcher, Slot)}.
  *
+ * @see SlotDispatcher
  */
 public enum ConnectionType {
     /**

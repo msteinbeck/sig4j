@@ -35,7 +35,7 @@ public abstract class Signal {
 
     /**
      * Connects the given slot using {@link ConnectionType#DIRECT}. This
-     * function is equivalent to {@code connect(slot, ConnectionType#DIRECT)}.
+     * function is equivalent to {@code connect(slot, ConnectionType.DIRECT)}.
      *
      * @param slot The slot to connect.
      * @throws IllegalArgumentException If {@code slot} is null.
