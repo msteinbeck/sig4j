@@ -21,7 +21,7 @@ public class Quickstart {
     public static void main(final String[] args) {
         Quickstart q = new Quickstart();
         q.signal.connect(q::print);
-        q.emit("hellow world!");
+        q.signal.emit("hellow world!");
     }
 }
 ```
