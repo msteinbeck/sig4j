@@ -33,10 +33,11 @@ public class SlotDispatcher implements Runnable {
             new ConcurrentLinkedQueue<>();
 
     /**
-     * Is emitted if {@link #dispatch()} actuates a slot which throws a
-     * {@link RuntimeException}.
+     * Is emitted by {@link #dispatch()} if a {@link RuntimeException} was
+     * thrown by {@link #beforeDispatch()}, {@link #afterDispatch()} or a
+     * slot actuation.
      */
-    private final Signal1<RuntimeException> actuationFailed = new Signal1<>();
+    private final Signal1<RuntimeException> dispatchingFailed = new Signal1<>();
 
     /**
      * The thread used in {@link #start()} and {@link #stop}
@@ -73,26 +74,48 @@ public class SlotDispatcher implements Runnable {
      * Polls the next {@link Signal.SlotActuation} from the event queue and
      * actuates it. Does nothing if the event queue is empty. This function
      * will never throw a {@link RuntimeException} but emit
-     * {@link #actuationFailed}.
+     * {@link #dispatchingFailed}.
      */
     protected final void dispatch() {
         final Signal.SlotActuation sa = slots.poll();
         if (sa != null) {
             try {
+                beforeDispatch();
                 sa.actuate();
+                afterDispatch();
             } catch (final RuntimeException e) {
-                actuationFailed.emit(e);
+                dispatchingFailed.emit(e);
             }
         }
     }
+
+    /**
+     * This method is a callback which gets executed by {@link #dispatch()}
+     * right before a slot is actuated. Override this callback to add some
+     * custom code. If a {@link RuntimeException} is thrown by this callback,
+     * {@link #dispatch()} will catch it and emit the signal returned by
+     * {@link #getDispatchingFailed()}. If there is no slot to actuate
+     * {@link #dispatch()} omits this callback.
+     */
+    protected void beforeDispatch() {}
+
+    /**
+     * This method is a callback which gets executed by {@link #dispatch()}
+     * right after a slot is actuated. Override this callback to add some
+     * custom code. If a {@link RuntimeException} is thrown by this callback,
+     * {@link #dispatch()} will catch it and emit the signal returned by
+     * {@link #getDispatchingFailed()}. If there is no slot to actuate
+     * {@link #dispatch()} omits this callback.
+     */
+    protected void afterDispatch() {}
 
     /**
      * Returns the signal which gets emitted if actuating a slot failed.
      *
      * @return The signal which gets emitted if actuating a slot failed.
      */
-    public final Signal1<RuntimeException> getActuationFailed() {
-        return actuationFailed;
+    public final Signal1<RuntimeException> getDispatchingFailed() {
+        return dispatchingFailed;
     }
 
     /**
