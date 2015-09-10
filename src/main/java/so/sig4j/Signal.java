@@ -1,15 +1,14 @@
 package so.sig4j;
 
-import java.util.ArrayDeque;
-import java.util.LinkedHashSet;
 import java.util.Queue;
-import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 /**
  * The base class of all signals.
  *
- * Beware that connecting slots to a signal 's' while emitting 's' is not
- * thread safe. On the other hand emitting 's' concurrently is thread safe.
+ * Note:
+ *  Connecting and emitting slots concurrently is thread safe and does not
+ *  require any locking.
  */
 public abstract class Signal {
     /**
@@ -22,15 +21,21 @@ public abstract class Signal {
         DISPATCHER.start();
     }
 
-    // The queue of {@link ConnectionType#DIRECT} connected slots.
-    private Queue<Slot> direct = new ArrayDeque<>();
+    /**
+     * The queue of {@link ConnectionType#DIRECT} connected slots.
+     */
+    private Queue<Slot> direct = new ConcurrentLinkedDeque<>();
 
-    // The queue of {@link ConnectionType#QUEUED} connected slots.
-    private Queue<Slot> queued = new ArrayDeque<>();
+    /**
+     * The queue of {@link ConnectionType#QUEUED} connected slots.
+     */
+    private Queue<Slot> queued = new ConcurrentLinkedDeque<>();
 
-    // The queue of dispatched slots {@see SlotDispatcher}.
-    // (Use {@link LinkedHashSet} to keep iteration order)
-    private Set<DispatcherAssociation> dispatched = new LinkedHashSet<>();
+    /**
+     * The queue of dispatched slots {@see SlotDispatcher}.
+     */
+    private Queue<DispatcherAssociation> dispatched =
+            new ConcurrentLinkedDeque<>();
 
     /**
      * Connects the given slot using {@link ConnectionType#DIRECT}. This
