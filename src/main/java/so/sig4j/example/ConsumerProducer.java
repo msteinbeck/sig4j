@@ -29,16 +29,6 @@ public class ConsumerProducer {
     }
 
     private static final class Consumer extends SlotDispatcher {
-
-        public void start() {
-            try {
-                while (true) {
-                    waitFor();
-                    dispatch();
-                }
-            } catch (final InterruptedException e) { /**/ }
-        }
-
         public void print(final String input) {
             System.out.println(input);
         }
