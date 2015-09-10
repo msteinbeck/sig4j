@@ -131,7 +131,7 @@ public class SlotDispatcher implements Runnable {
     }
 
     /**
-     * Stops the current {@link Thread} created in {@link #start()}. Does
+     * Stops the current {@link Thread} created by {@link #start()}. Does
      * nothing if there is no running thread.
      */
     public final synchronized void stop() {
