@@ -4,8 +4,6 @@ import java.util.ArrayDeque;
 import java.util.LinkedHashSet;
 import java.util.Queue;
 import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * The base class of all signals.
@@ -14,14 +12,15 @@ import java.util.concurrent.Executors;
  * thread safe. On the other hand emitting 's' concurrently is thread safe.
  */
 public abstract class Signal {
-    // The thread pool used for {@link ConnectionType#QUEUED} connected slots.
-    private static final ExecutorService THREAD_POOL =
-            Executors.newSingleThreadExecutor(runnable -> {
-                final Thread t = new Thread(runnable);
-                // Non-daemon threads prevent program termination
-                t.setDaemon(true);
-                return t;
-            });
+    /**
+     * The {@link SlotDispatcher} of {@link ConnectionType#QUEUED} connected
+     * slots.
+     */
+    private static final SlotDispatcher DISPATCHER = new SlotDispatcher();
+
+    static {
+        DISPATCHER.start();
+    }
 
     // The queue of {@link ConnectionType#DIRECT} connected slots.
     private Queue<Slot> direct = new ArrayDeque<>();
@@ -91,8 +90,10 @@ public abstract class Signal {
      */
     protected void emit(final Object... args) {
         direct.forEach(slot -> actuate(slot, args));
-        queued.forEach(slot -> THREAD_POOL.execute(
-                () -> actuate(slot, args)));
+        queued.forEach(slot -> {
+            final SlotActuation sa = new SlotActuation(slot, args);
+            DISPATCHER.actuate(sa);
+        });
         dispatched.forEach(da -> {
             final SlotActuation sa = new SlotActuation(da.slot, args);
             da.slotDispatcher.actuate(sa);
