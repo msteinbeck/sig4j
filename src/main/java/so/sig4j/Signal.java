@@ -63,8 +63,8 @@ public abstract class Signal {
 
     /**
      * Removes all connected slots. Clearing a signal is not an atomic
-     * operation and may result in a non-empty signal if one of the connect
-     * methods is used concurrently.
+     * operation and may result in a non-empty slot queue if one of the
+     * 'connect' methods is used concurrently.
      */
     public void clear() {
         direct.clear();
