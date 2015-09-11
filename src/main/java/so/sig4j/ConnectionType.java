@@ -18,10 +18,5 @@ public enum ConnectionType {
     /**
      * The slot is actuated by a thread of the thread pool.
      */
-    QUEUED,
-
-    /**
-     * The slot is actuated by the dispatcher loop.
-     */
-    //DISPATCHED
+    QUEUED
 }
