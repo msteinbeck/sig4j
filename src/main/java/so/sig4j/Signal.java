@@ -2,6 +2,7 @@ package so.sig4j;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * The base class of all signals.
@@ -22,6 +23,13 @@ public abstract class Signal {
     }
 
     /**
+     * Indicates whether a signal is enabled/disabled.
+     * @see #enable()
+     * @see #disable()
+     */
+    private final AtomicBoolean enabled = new AtomicBoolean(true);
+
+    /**
      * The queue of {@link ConnectionType#DIRECT} connected slots.
      */
     private Queue<Slot> direct = new ConcurrentLinkedDeque<>();
@@ -36,6 +44,23 @@ public abstract class Signal {
      */
     private Queue<DispatcherAssociation> dispatched =
             new ConcurrentLinkedDeque<>();
+
+    /**
+     * Enables the signal.
+     * @see #disable()
+     */
+    public void enable() {
+        enabled.set(true);
+    }
+
+    /**
+     * Disables the signal. A disabled signal will not actuate its connected
+     * slots.
+     * @see #enable()
+     */
+    public void disable() {
+        enabled.set(false);
+    }
 
     /**
      * Connects the given slot using {@link ConnectionType#DIRECT}. This
@@ -94,15 +119,17 @@ public abstract class Signal {
      * @param args The arguments to use while emitting this signal.
      */
     protected void emit(final Object... args) {
-        direct.forEach(slot -> actuate(slot, args));
-        queued.forEach(slot -> {
-            final SlotActuation sa = new SlotActuation(slot, args);
-            DISPATCHER.actuate(sa);
-        });
-        dispatched.forEach(da -> {
-            final SlotActuation sa = new SlotActuation(da.slot, args);
-            da.slotDispatcher.actuate(sa);
-        });
+        if (enabled.get()) {
+            direct.forEach(slot -> actuate(slot, args));
+            queued.forEach(slot -> {
+                final SlotActuation sa = new SlotActuation(slot, args);
+                DISPATCHER.actuate(sa);
+            });
+            dispatched.forEach(da -> {
+                final SlotActuation sa = new SlotActuation(da.slot, args);
+                da.slotDispatcher.actuate(sa);
+            });
+        }
     }
 
     /**

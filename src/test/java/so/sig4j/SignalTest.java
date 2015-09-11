@@ -117,4 +117,33 @@ public class SignalTest {
                 });
         signalProvider.intSignal4.emit(null, null, null, null);
     }
+
+
+
+    @Test(expected = RuntimeException.class)
+    public void enabledDefault() {
+        SignalProvider signalProvider = new SignalProvider();
+        signalProvider.stringSignal1.connect(
+                s -> {throw new RuntimeException();});
+        signalProvider.stringSignal1.emit("enabled");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void enabled() {
+        SignalProvider signalProvider = new SignalProvider();
+        signalProvider.stringSignal1.connect(
+                s -> {throw new RuntimeException();});
+        signalProvider.stringSignal1.disable();
+        signalProvider.stringSignal1.enable();
+        signalProvider.stringSignal1.emit("enabled");
+    }
+
+    @Test
+    public void disabled() {
+        SignalProvider signalProvider = new SignalProvider();
+        signalProvider.stringSignal1.connect(
+                s -> {throw new RuntimeException();});
+        signalProvider.stringSignal1.disable();
+        signalProvider.stringSignal1.emit("enabled");
+    }
 }
