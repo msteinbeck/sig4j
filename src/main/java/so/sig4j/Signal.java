@@ -8,8 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * The base class of all signals.
  *
  * Note:
- *  Connecting and emitting slots concurrently is thread safe and does not
- *  require any locking.
+ *  Connecting and emitting slots concurrently is thread safe without blocking.
  */
 public abstract class Signal {
     /**
@@ -63,6 +62,17 @@ public abstract class Signal {
     }
 
     /**
+     * Removes all connected slots. Clearing a signal is not an atomic
+     * operation and may result in a non-empty signal if one of the connect
+     * methods is used concurrently.
+     */
+    public void clear() {
+        direct.clear();
+        queued.clear();
+        dispatched.clear();
+    }
+
+    /**
      * Connects the given slot using {@link ConnectionType#DIRECT}. This
      * function is equivalent to {@code connect(slot, ConnectionType.DIRECT)}.
      *
@@ -97,7 +107,7 @@ public abstract class Signal {
 
     /**
      * Connects the given slot and actuates it within the thread context
-     * of the given {@link SlotDispatcher} if this signal is emitted.
+     * of the given {@link SlotDispatcher} if the signal is emitted.
      *
      * @param dispatcher The {@link SlotDispatcher} to use.
      * @param slot       The slot to connect.

@@ -146,4 +146,30 @@ public class SignalTest {
         signalProvider.stringSignal1.disable();
         signalProvider.stringSignal1.emit("enabled");
     }
+
+
+
+    @Test
+    public void clear() {
+        SignalProvider signalProvider = new SignalProvider();
+        signalProvider.stringSignal1.connect(
+                s -> {throw new RuntimeException();});
+        signalProvider.stringSignal1.clear();
+        signalProvider.stringSignal1.emit("enabled");
+    }
+
+    @Test
+    public void clearMulti() {
+        SignalProvider signalProvider = new SignalProvider();
+        signalProvider.stringSignal1.connect(
+                s -> {throw new RuntimeException();});
+        signalProvider.stringSignal1.connect(
+                s -> {throw new RuntimeException();});
+        signalProvider.stringSignal1.connect(
+                s -> {throw new RuntimeException();});
+        signalProvider.stringSignal1.connect(
+                s -> {throw new RuntimeException();});
+        signalProvider.stringSignal1.clear();
+        signalProvider.stringSignal1.emit("enabled");
+    }
 }
