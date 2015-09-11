@@ -13,7 +13,7 @@ public class ConsumerProducer {
         p.signal.connect(c, c::printReverse);
 
         new Thread(p::start).start();
-        new Thread(c::start).start();
+        new Thread(c::run).start();
     }
 
     private static final class Producer {
