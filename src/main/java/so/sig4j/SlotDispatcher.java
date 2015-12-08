@@ -34,8 +34,8 @@ public class SlotDispatcher implements Runnable {
 
     /**
      * Is emitted by {@link #dispatch()} if a {@link RuntimeException} was
-     * thrown by {@link #beforeDispatch()}, {@link #afterDispatch()} or a
-     * slot actuation.
+     * thrown by either {@link #beforeActuation()}, {@link #afterActuation()},
+     * or a slot actuation.
      */
     private final Signal1<RuntimeException> dispatchingFailed = new Signal1<>();
 
@@ -80,9 +80,9 @@ public class SlotDispatcher implements Runnable {
         try {
             final Signal.SlotActuation sa = slots.poll();
             if (sa != null) {
-                beforeDispatch();
+                beforeActuation();
                 sa.actuate();
-                afterDispatch();
+                afterActuation();
             }
         } catch (final RuntimeException e) {
             dispatchingFailed.emit(e);
@@ -97,7 +97,7 @@ public class SlotDispatcher implements Runnable {
      * {@link #getDispatchingFailed()}. If there is no slot to actuate
      * {@link #dispatch()} omits this callback.
      */
-    protected void beforeDispatch() {}
+    protected void beforeActuation() {}
 
     /**
      * This method is a callback which gets executed by {@link #dispatch()}
@@ -107,7 +107,7 @@ public class SlotDispatcher implements Runnable {
      * {@link #getDispatchingFailed()}. If there is no slot to actuate
      * {@link #dispatch()} omits this callback.
      */
-    protected void afterDispatch() {}
+    protected void afterActuation() {}
 
     /**
      * Returns the signal which gets emitted if actuating a slot failed.
