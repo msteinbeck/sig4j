@@ -77,15 +77,15 @@ public class SlotDispatcher implements Runnable {
      * {@link #dispatchingFailed}.
      */
     protected final void dispatch() {
-        final Signal.SlotActuation sa = slots.poll();
-        if (sa != null) {
-            try {
+        try {
+            final Signal.SlotActuation sa = slots.poll();
+            if (sa != null) {
                 beforeDispatch();
                 sa.actuate();
                 afterDispatch();
-            } catch (final RuntimeException e) {
-                dispatchingFailed.emit(e);
             }
+        } catch (final RuntimeException e) {
+            dispatchingFailed.emit(e);
         }
     }
 
