@@ -2,6 +2,7 @@ package so.sig4j;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -39,6 +40,11 @@ public abstract class Signal {
     private Queue<Slot> queued = new ConcurrentLinkedDeque<>();
 
     /**
+     * The queue of {@link ConnectionType#BLOCKING_QUEUED} connected slots.
+     */
+    private Queue<Slot> blockingQueued = new ConcurrentLinkedDeque<>();
+
+    /**
      * The queue of dispatched slots {@see SlotDispatcher}.
      */
     private Queue<DispatcherAssociation> dispatched =
@@ -69,6 +75,7 @@ public abstract class Signal {
     public void clear() {
         direct.clear();
         queued.clear();
+        blockingQueued.clear();
         dispatched.clear();
     }
 
@@ -98,10 +105,21 @@ public abstract class Signal {
             throw new IllegalArgumentException("slot is null");
         } else if (type == null) {
             throw new IllegalArgumentException("connection type is null");
-        } else if (type == ConnectionType.DIRECT) {
-            connect(slot);
-        } else {
-            queued.add(slot);
+        }
+
+        switch (type) {
+            case DIRECT:
+                direct.add(slot);
+                break;
+            case QUEUED:
+                queued.add(slot);
+                break;
+            case BLOCKING_QUEUED:
+                blockingQueued.add(slot);
+                break;
+            default:
+                throw new RuntimeException(
+                    "unknown connection type: " + type.toString());
         }
     }
 
@@ -130,15 +148,28 @@ public abstract class Signal {
      */
     protected void emit(final Object... args) {
         if (enabled.get()) {
-            direct.forEach(slot -> actuate(slot, args));
-            queued.forEach(slot -> {
-                final SlotActuation sa = new SlotActuation(slot, args);
+            // Actuate the slots this method needs to wait for at first
+            // in order to reduce the blocking time.
+            int nAcquire = 0;
+            final Semaphore sem = new Semaphore(nAcquire);
+            for (final Slot s : blockingQueued) {
+                nAcquire++;
+                final SlotActuation sa = new SemSlotActuation(s, args, sem);
                 DISPATCHER.actuate(sa);
-            });
+            }
             dispatched.forEach(da -> {
                 final SlotActuation sa = new SlotActuation(da.slot, args);
                 da.slotDispatcher.actuate(sa);
             });
+            queued.forEach(s -> {
+                final SlotActuation sa = new SlotActuation(s, args);
+                DISPATCHER.actuate(sa);
+            });
+            direct.forEach(s -> actuate(s, args));
+            // Wait for the remaining slots.
+            try {
+                sem.acquire(nAcquire);
+            } catch (InterruptedException e) {/**/}
         }
     }
 
@@ -178,13 +209,36 @@ public abstract class Signal {
         private final Slot slot;
         private final Object[] arguments;
 
-        private SlotActuation(final Slot pSlot, final Object[] args) {
-            slot = pSlot;
+        private SlotActuation(final Slot s, final Object[] args) {
+            slot = s;
             arguments = args;
         }
 
         public void actuate() {
             Signal.this.actuate(slot, arguments);
+        }
+    }
+
+    /**
+     * This class is used for slots connected with
+     * {@link ConnectionType#BLOCKING_QUEUED}. By sharing the same
+     * {@link Semaphore} among various instances of this class, the method
+     * {@link Signal#emit(Object...)} is able to wait for all slots to be
+     * actuated before returning to the context of the caller.
+     */
+    private class SemSlotActuation extends SlotActuation {
+        private final Semaphore semaphore;
+
+        public SemSlotActuation(final Slot s, final Object[] args,
+                final Semaphore sem) {
+            super(s, args);
+            semaphore = sem;
+        }
+
+        @Override
+        public void actuate() {
+            super.actuate();
+            semaphore.release();
         }
     }
 }

@@ -16,7 +16,13 @@ public enum ConnectionType {
     DIRECT,
 
     /**
-     * The slot is actuated by a thread of the thread pool.
+     * The slot is actuated by a worker thread used in {@link Signal}.
      */
-    QUEUED
+    QUEUED,
+
+    /**
+     * Same as {@link #QUEUED}, except that the current thread blocks until
+     * the slot has been actuated.
+     */
+    BLOCKING_QUEUED
 }
