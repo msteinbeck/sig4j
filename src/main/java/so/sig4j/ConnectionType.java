@@ -10,19 +10,15 @@ package so.sig4j;
  */
 public enum ConnectionType {
     /**
-     * The slot is actuated within the thread context of the emitter
-     * (immediately).
+     * The slot is actuated by the emitter. To be more precise: The slot is
+     * actuated within the thread context of the emitter.
      */
     DIRECT,
 
     /**
-     * The slot is actuated by a worker thread used in {@link Signal}.
+     * The slot is queued until the worker thread used in {@link Signal} is
+     * able to actuate the slot. Use this connection type if you want the
+     * emitter to return immediately without any blocking.
      */
     QUEUED,
-
-    /**
-     * Same as {@link #QUEUED}, except that the current thread blocks until
-     * the slot has been actuated.
-     */
-    BLOCKING_QUEUED
 }
