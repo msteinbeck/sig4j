@@ -5,7 +5,7 @@ import so.sig4j.Slot;
 import java.util.Objects;
 
 /**
- * A slot with 34 generic arguments.
+ * A slot with 4 generic arguments.
  *
  * @param <T> The type of the first argument.
  * @param <U> The type of the second argument.
