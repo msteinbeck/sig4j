@@ -25,3 +25,10 @@ public class Quickstart {
     }
 }
 ```
+
+Sig4j supports three types of connection:
+- Direkt: A slot is actuated within the thread context of the emitter.
+- Queued: A slot is actuated by a global worker thread.
+- Dispatched: A Slot is actuated by a custom dispatcher.
+
+Have a look at [examples](https://github.com/msteinbeck/sig4j/tree/master/src/main/java/so/sig4j/example) for examples using the different connection types.
