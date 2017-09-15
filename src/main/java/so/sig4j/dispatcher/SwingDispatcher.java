@@ -1,22 +1,19 @@
 package so.sig4j.dispatcher;
 
-import javafx.application.Platform;
 import so.sig4j.SlotDispatcher;
+import javax.swing.SwingUtilities;
 
-/**
- * A {@link SlotDispatcher} for JavaFX events.
- */
-public class JavaFXDispatcher extends SlotDispatcher {
+public class SwingDispatcher extends SlotDispatcher {
 
 	/**
 	 * The singleton instance.
 	 */
-	private static JavaFXDispatcher instance;
+	private static SwingDispatcher instance;
 
 	/**
 	 * Default constructor.
 	 */
-	private JavaFXDispatcher() {}
+	private SwingDispatcher() {}
 
 	/**
 	 * Returns the singleton instance. If no instance exists yet, a new one is
@@ -24,9 +21,9 @@ public class JavaFXDispatcher extends SlotDispatcher {
 	 *
 	 * @return The singleton instance.
 	 */
-	public static synchronized JavaFXDispatcher getInstance() {
+	public static synchronized SwingDispatcher getInstance() {
 		if (instance == null) {
-			instance = new JavaFXDispatcher();
+			instance = new SwingDispatcher();
 			instance.start();
 		}
 		return instance;
@@ -35,6 +32,6 @@ public class JavaFXDispatcher extends SlotDispatcher {
 	@Override
 	protected void switchContext() {
 		// do not call `super.switchContext();`!
-		Platform.runLater(this::dispatch);
+		SwingUtilities.invokeLater(this::dispatch);
 	}
 }
