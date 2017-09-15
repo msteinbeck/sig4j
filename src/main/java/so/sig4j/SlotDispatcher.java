@@ -26,6 +26,8 @@ import java.util.concurrent.Semaphore;
  * Finally, {@link #start()} and {@link #stop()} are convenience methods to
  * start (and stop) an arbitrary thread which executes {@link #run()} in its
  * context.
+ *
+ * For examples, see {@link so.sig4j.dispatcher.JavaFXDispatcher}
  */
 public class SlotDispatcher implements Runnable {
 
