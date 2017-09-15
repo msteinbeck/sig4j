@@ -10,19 +10,28 @@ import java.util.concurrent.Semaphore;
  * This class is necessary to actuate slots connected with
  * {@link Signal#connect(SlotDispatcher, Slot)}, namely dispatched slots.
  *
- * A dispatched slot is actuated in a separate 'dispatcher' thread, e.g. the
- * GUI thread, the database thread and so on. The idea is to periodically call
- * {@link #waitFor()} and {@link #dispatch()} in a thread of your choice which
- * will handle the actuation of slots. Another approach is to use
- * {@link #run()} which runs in a loop until the current thread gets
- * interrupted. Use {@link #start()} and {@link #stop()} to create a Thread and
- * execute {@link #run()} in its context.
+ * A dispatched slot is actuated in a separate 'dispatcher' thread, e.g., the
+ * GUI thread, the database thread, and so on. The idea is to periodically call
+ * {@link #waitFor()} and {@link #dispatch()} in a thread of your choice to
+ * handle the actuation of slots.
+ *
+ * You may also use {@link #run()} which calls {@link #waitFor()} and
+ * {@link #switchContext()} in a loop until the current thread gets
+ * interrupted. {@link #switchContext()}, in turn, may be subclassed to
+ * delegate {@link #dispatch()} to another dispatcher thread, for example, the
+ * JavaFX thread. By default, {@link #switchContext()} calls
+ * {@link #dispatch()} in the same context as {@link #run()} which is a useful
+ * default in most cases.
+ *
+ * Finally, {@link #start()} and {@link #stop()} are convenience methods to
+ * start (and stop) an arbitrary thread which executes {@link #run()} in its
+ * context.
  */
 public class SlotDispatcher implements Runnable {
 
     /**
-     * Is used to block the dispatcher thread until an associated signal was
-     * emitted.
+     * Is used to block the dispatcher thread until an associated signal has
+     * been emitted.
      */
     private final Semaphore semaphore = new Semaphore(0);
 
@@ -33,14 +42,14 @@ public class SlotDispatcher implements Runnable {
             new ConcurrentLinkedQueue<>();
 
     /**
-     * Is emitted by {@link #dispatch()} if a {@link RuntimeException} was
+     * Is emitted by {@link #dispatch()} if a {@link RuntimeException} has been
      * thrown by either {@link #beforeActuation()}, {@link #afterActuation()},
      * or a slot actuation.
      */
     private final Signal1<RuntimeException> dispatchingFailed = new Signal1<>();
 
     /**
-     * The thread used in {@link #start()} and {@link #stop}
+     * The thread used in {@link #start()} and {@link #stop}.
      */
     private Thread workerThread = null;
 
@@ -87,6 +96,15 @@ public class SlotDispatcher implements Runnable {
         } catch (final RuntimeException e) {
             dispatchingFailed.emit(e);
         }
+    }
+
+    /**
+     * Allows subclasses to switch the thread context before actuating a slot
+     * by calling {@link #dispatch()} within the desired context. The base
+     * implementation calls {@link #dispatch()} within the caller context.
+     */
+    protected void switchContext() {
+        dispatch();
     }
 
     /**
@@ -146,7 +164,7 @@ public class SlotDispatcher implements Runnable {
         try {
             while (!Thread.currentThread().isInterrupted()) {
                 waitFor();
-                dispatch();
+                switchContext();
             }
         } catch (final InterruptedException e) { /**/ }
     }
