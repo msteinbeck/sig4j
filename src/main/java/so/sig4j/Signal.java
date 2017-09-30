@@ -1,5 +1,8 @@
 package so.sig4j;
 
+import so.sig4j.dispatcher.JavaFXDispatcher;
+import so.sig4j.dispatcher.SwingDispatcher;
+
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -102,6 +105,10 @@ public abstract class Signal {
             throw new IllegalArgumentException("connection type is null");
         } else if (type == DIRECT) {
             direct.add(slot);
+        } else if (type == JAVAFX) {
+            connect(JavaFXDispatcher.getInstance(), slot);
+        } else if (type == SWING) {
+            connect(SwingDispatcher.getInstance(), slot);
         } else {
             queued.add(slot);
         }

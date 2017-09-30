@@ -4,7 +4,7 @@
   <groupId>so.sig4j</groupId>
   <artifactId>sig4j</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>sig4j</name>
   <url>http://maven.apache.org</url>
   

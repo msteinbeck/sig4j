@@ -1,6 +1,5 @@
 package so.sig4j.example;
 
-import so.sig4j.dispatcher.SwingDispatcher;
 import so.sig4j.signal.Signal1;
 
 import javax.swing.JFrame;
@@ -11,6 +10,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import java.awt.HeadlessException;
+
+import static so.sig4j.ConnectionType.SWING;
 
 public class SwingExample extends JFrame implements DocumentListener {
 
@@ -24,7 +25,7 @@ public class SwingExample extends JFrame implements DocumentListener {
 		textField.getDocument().addDocumentListener(this);
 
 		final JLabel label = new JLabel();
-		textChanged.connect(SwingDispatcher.getInstance(), label::setText);
+		textChanged.connect(label::setText, SWING);
 
 		add(textField);
 		add(label);

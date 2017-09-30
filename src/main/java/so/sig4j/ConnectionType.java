@@ -10,10 +10,21 @@ package so.sig4j;
  */
 public enum ConnectionType {
     /**
-     * The slot is actuated by the emitter. To be more precise: The slot is
-     * actuated within the thread context of the emitter.
+     * The slot is actuated within the thread context of the emitter.
      */
     DIRECT,
+
+    /**
+     * Similar to {@link #QUEUED}, but actuates the slot within the thread
+     * context of the JavaFX thread.
+     */
+    JAVAFX,
+
+    /**
+     * Similar to {@link #QUEUED}, but actuates the slot within the thread
+     * context of the Swing thread.
+     */
+    SWING,
 
     /**
      * The slot is queued until the worker thread used in {@link Signal} is

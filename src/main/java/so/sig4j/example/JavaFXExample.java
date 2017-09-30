@@ -7,10 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import so.sig4j.dispatcher.JavaFXDispatcher;
 import so.sig4j.signal.Signal1;
 
 import java.util.Arrays;
+
+import static so.sig4j.ConnectionType.JAVAFX;
 
 public class JavaFXExample extends Application {
 
@@ -31,8 +32,8 @@ public class JavaFXExample extends Application {
 		});
 
 		final Label label = new Label();
-		// Remove `JavaFXDispatcher.getInstance()` to see FX exceptions
-		textChanged.connect(JavaFXDispatcher.getInstance(), label::setText);
+		// Remove `JAVAFX` to get FX exceptions
+		textChanged.connect(label::setText, JAVAFX);
 
 		final Pane root = new VBox();
 		root.getChildren().addAll(Arrays.asList(textField, label));
