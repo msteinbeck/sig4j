@@ -13,37 +13,37 @@ import com.github.sig4j.slot.Slot1;
  */
 public class Signal1<T> extends Signal {
 
-    /**
-     * @see Signal#connect(Slot)
-     */
-    public void connect(final Slot1<T> slot) {
-        super.connect(slot);
-    }
+	/**
+	 * @see Signal#connect(Slot)
+	 */
+	public void connect(final Slot1<T> slot) {
+		super.connect(slot);
+	}
 
-    /**
-     * @see Signal#connect(Slot, Type)
-     */
-    public void connect(final Slot1<T> slot, final Type type) {
-        super.connect(slot, type);
-    }
+	/**
+	 * @see Signal#connect(Slot, Type)
+	 */
+	public void connect(final Slot1<T> slot, final Type type) {
+		super.connect(slot, type);
+	}
 
-    /**
-     * @see Signal#connect(Slot, Dispatcher)
-     */
-    public void connect(final Slot1<T> slot, final Dispatcher dispatcher) {
-        super.connect(slot, dispatcher);
-    }
+	/**
+	 * @see Signal#connect(Slot, Dispatcher)
+	 */
+	public void connect(final Slot1<T> slot, final Dispatcher dispatcher) {
+		super.connect(slot, dispatcher);
+	}
 
-    /**
-     * @see Signal#emit(Object...)
-     */
-    public void emit(final T t) {
-        super.emit(t);
-    }
+	/**
+	 * @see Signal#emit(Object...)
+	 */
+	public void emit(final T t) {
+		super.emit(t);
+	}
 
-    @Override
-    @SuppressWarnings("unchecked")
-    protected void actuate(final Slot slot, final Object[] args) {
-        ((Slot1<T>) slot).accept((T)args[0]);
-    }
+	@Override
+	@SuppressWarnings("unchecked")
+	protected void actuate(final Slot slot, final Object[] args) {
+		((Slot1<T>) slot).accept((T)args[0]);
+	}
 }
