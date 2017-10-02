@@ -4,7 +4,7 @@ package com.github;
  * The enum of supported connection types.
  *
  * To actuate a slot by a dispatcher ({@link SlotDispatcher}) use
- * {@link Signal#connect(SlotDispatcher, Slot)}.
+ * {@link Signal#connect(Slot, SlotDispatcher)}.
  *
  * @see SlotDispatcher
  */

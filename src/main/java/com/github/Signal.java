@@ -3,6 +3,8 @@ package com.github;
 import com.github.dispatcher.JavaFXDispatcher;
 import com.github.dispatcher.SwingDispatcher;
 
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -48,13 +50,14 @@ public abstract class Signal {
     /**
      * The queue of dispatched slots {@see SlotDispatcher}.
      */
-    private Queue<DispatcherAssociation> dispatched =
-            new ConcurrentLinkedDeque<>();
+    private Queue<Entry<Slot, SlotDispatcher>>
+            dispatched = new ConcurrentLinkedDeque<>();
 
     /**
      * Enables the signal.
      * @see #disable()
      */
+    @SuppressWarnings("WeakerAccess")
     public void enable() {
         enabled.set(true);
     }
@@ -64,6 +67,7 @@ public abstract class Signal {
      * slots.
      * @see #enable()
      */
+    @SuppressWarnings("WeakerAccess")
     public void disable() {
         enabled.set(false);
     }
@@ -73,6 +77,7 @@ public abstract class Signal {
      * operation and may result in a non-empty slot queue if one of the
      * 'connect' methods is used concurrently.
      */
+    @SuppressWarnings("WeakerAccess")
     public void clear() {
         direct.clear();
         queued.clear();
@@ -131,7 +136,7 @@ public abstract class Signal {
         } else if (dispatcher == null) {
             throw new IllegalArgumentException("dispatcher is null");
         }
-        dispatched.add(new DispatcherAssociation(dispatcher, slot));
+        dispatched.add(new SimpleEntry<>(slot, dispatcher));
     }
 
     /**
@@ -142,8 +147,8 @@ public abstract class Signal {
     protected void emit(final Object... args) {
         if (enabled.get()) {
             dispatched.forEach(da -> {
-                final SlotActuation sa = new SlotActuation(da.slot, args);
-                da.slotDispatcher.actuate(sa);
+                final SlotActuation sa = new SlotActuation(da.getKey(), args);
+                da.getValue().actuate(sa);
             });
             queued.forEach(s -> {
                 final SlotActuation sa = new SlotActuation(s, args);
@@ -169,21 +174,8 @@ public abstract class Signal {
 
 
     /**
-     * Associates a connected slot with its dispatcher.
-     */
-    private static class DispatcherAssociation {
-        private final SlotDispatcher slotDispatcher;
-        private final Slot slot;
-
-        private DispatcherAssociation(final SlotDispatcher sd, final Slot s) {
-            slotDispatcher = sd;
-            slot = s;
-        }
-    }
-
-    /**
-     * Represents an actual slot actuation. Use {@link #actuate()} to actuate
-     * the slot with its arguments.
+     * Represents a slot actuation. Use {@link #actuate()} to actuate the slot
+     * with its arguments.
      */
     class SlotActuation {
         private final Slot slot;
