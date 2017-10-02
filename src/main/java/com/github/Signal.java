@@ -1,13 +1,11 @@
-package so.sig4j;
+package com.github;
 
-import so.sig4j.dispatcher.JavaFXDispatcher;
-import so.sig4j.dispatcher.SwingDispatcher;
+import com.github.dispatcher.JavaFXDispatcher;
+import com.github.dispatcher.SwingDispatcher;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import static so.sig4j.ConnectionType.*;
 
 /**
  * The base class of all signals.
@@ -103,11 +101,11 @@ public abstract class Signal {
             throw new IllegalArgumentException("slot is null");
         } else if (type == null) {
             throw new IllegalArgumentException("connection type is null");
-        } else if (type == DIRECT) {
+        } else if (type == ConnectionType.DIRECT) {
             direct.add(slot);
-        } else if (type == JAVAFX) {
+        } else if (type == ConnectionType.JAVAFX) {
             connect(JavaFXDispatcher.getInstance(), slot);
-        } else if (type == SWING) {
+        } else if (type == ConnectionType.SWING) {
             connect(SwingDispatcher.getInstance(), slot);
         } else {
             queued.add(slot);

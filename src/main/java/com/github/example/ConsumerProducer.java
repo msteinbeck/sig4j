@@ -1,7 +1,7 @@
-package so.sig4j.example;
+package com.github.example;
 
-import so.sig4j.SlotDispatcher;
-import so.sig4j.signal.Signal1;
+import com.github.SlotDispatcher;
+import com.github.signal.Signal1;
 
 import java.util.Scanner;
 

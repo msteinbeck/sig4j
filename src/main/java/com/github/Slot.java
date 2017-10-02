@@ -1,4 +1,4 @@
-package so.sig4j;
+package com.github;
 
 /**
  * The base interface of all slots.

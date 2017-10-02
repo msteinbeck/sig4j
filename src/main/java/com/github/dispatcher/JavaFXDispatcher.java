@@ -1,7 +1,7 @@
-package so.sig4j.dispatcher;
+package com.github.dispatcher;
 
 import javafx.application.Platform;
-import so.sig4j.SlotDispatcher;
+import com.github.SlotDispatcher;
 
 /**
  * A {@link SlotDispatcher} for JavaFX events.

@@ -8,13 +8,13 @@ functions and lambdas to signals without much effort .
 ### Quickstart
 The following code snippet shows a short example:
 ```java
-import so.sig4j.ConnectionType;
-import so.sig4j.signal.Signal1;
+import com.github.ConnectionType;
+import com.github.Signal1;
 
 public class Quickstart {
     private final Signal1<String> signal = new Signal1<>();
     
-    private final void print(final String string) {
+    private void print(final String string) {
         System.out.println(string);
     }
 

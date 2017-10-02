@@ -1,9 +1,8 @@
-package so.sig4j;
+package com.github;
 
-import org.junit.Assert;
 import org.junit.Test;
-import so.sig4j.signal.Signal1;
-import so.sig4j.signal.Signal4;
+import com.github.signal.Signal1;
+import com.github.signal.Signal4;
 
 import static org.junit.Assert.*;
 

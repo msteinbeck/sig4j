@@ -1,8 +1,8 @@
-package so.sig4j.example;
+package com.github.example;
 
 
-import so.sig4j.ConnectionType;
-import so.sig4j.signal.Signal0;
+import com.github.ConnectionType;
+import com.github.signal.Signal0;
 
 public class QueuedExample {
 

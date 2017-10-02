@@ -1,8 +1,11 @@
-package so.sig4j.dispatcher;
+package com.github.dispatcher;
 
-import so.sig4j.SlotDispatcher;
+import com.github.SlotDispatcher;
 import javax.swing.SwingUtilities;
 
+/**
+ * A {@link SlotDispatcher} for Swing events.
+ */
 public class SwingDispatcher extends SlotDispatcher {
 
 	/**

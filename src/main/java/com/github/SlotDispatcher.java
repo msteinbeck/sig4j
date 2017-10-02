@@ -1,6 +1,6 @@
-package so.sig4j;
+package com.github;
 
-import so.sig4j.signal.Signal1;
+import com.github.signal.Signal1;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -27,7 +27,7 @@ import java.util.concurrent.Semaphore;
  * start (and stop) an arbitrary thread which executes {@link #run()} in its
  * context.
  *
- * For examples, see {@link so.sig4j.dispatcher.JavaFXDispatcher}
+ * For examples, see {@link com.github.dispatcher.JavaFXDispatcher}
  */
 public class SlotDispatcher implements Runnable {
 

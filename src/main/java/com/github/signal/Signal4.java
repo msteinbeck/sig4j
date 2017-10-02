@@ -1,10 +1,10 @@
-package so.sig4j.signal;
+package com.github.signal;
 
-import so.sig4j.ConnectionType;
-import so.sig4j.Signal;
-import so.sig4j.SlotDispatcher;
-import so.sig4j.Slot;
-import so.sig4j.slot.Slot4;
+import com.github.ConnectionType;
+import com.github.Slot;
+import com.github.Signal;
+import com.github.SlotDispatcher;
+import com.github.slot.Slot4;
 
 /**
  * A signal with 4 generic arguments.
