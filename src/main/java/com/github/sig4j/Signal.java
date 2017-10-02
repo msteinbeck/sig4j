@@ -125,7 +125,7 @@ public abstract class Signal {
 	 *
 	 * @param slot The slot to connect.
 	 * @param dispatcher The {@link Dispatcher} to use.
-	 * @throws IllegalArgumentException If {@code dispatcher} or {@code slot}
+	 * @throws IllegalArgumentException If {@code slot} or {@code dispatcher}
      * is {@code null}.
 	 */
 	protected void connect(final Slot slot, final Dispatcher dispatcher) {
