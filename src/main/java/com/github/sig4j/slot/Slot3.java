@@ -14,14 +14,15 @@ import java.util.Objects;
 @FunctionalInterface
 public interface Slot3<T, U, V> extends Slot {
 
-    void accept(final T t, final U u, final V v);
+	void accept(final T t, final U u, final V v);
 
-    default Slot3<T, U, V> andThen(
-            final Slot3<? super T, ? super U, ? super V> after) {
-        Objects.requireNonNull(after);
-        return (t, u, v) -> {
-            accept(t, u, v);
-            after.accept(t, u, v);
-        };
-    }
+	@SuppressWarnings("unused")
+	default Slot3<T, U, V> andThen(
+			final Slot3<? super T, ? super U, ? super V> after) {
+		Objects.requireNonNull(after);
+		return (t, u, v) -> {
+			accept(t, u, v);
+			after.accept(t, u, v);
+		};
+	}
 }

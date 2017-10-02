@@ -10,13 +10,14 @@ import java.util.Objects;
 @FunctionalInterface
 public interface Slot0 extends Slot {
 
-    void accept();
+	void accept();
 
-    default Slot0 andThen(final Slot0 after) {
-        Objects.requireNonNull(after);
-        return () -> {
-            accept();
-            after.accept();
-        };
-    }
+	@SuppressWarnings("unused")
+	default Slot0 andThen(final Slot0 after) {
+		Objects.requireNonNull(after);
+		return () -> {
+			accept();
+			after.accept();
+		};
+	}
 }
