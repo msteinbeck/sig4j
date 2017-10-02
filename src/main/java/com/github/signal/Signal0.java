@@ -26,10 +26,10 @@ public class Signal0 extends Signal {
     }
 
     /**
-     * @see Signal#connect(SlotDispatcher, Slot)
+     * @see Signal#connect(Slot, SlotDispatcher)
      */
-    public void connect(final SlotDispatcher dispatcher, final Slot0 slot) {
-        super.connect(dispatcher, slot);
+    public void connect(final Slot0 slot, final SlotDispatcher dispatcher) {
+        super.connect(slot, dispatcher);
     }
 
     /**

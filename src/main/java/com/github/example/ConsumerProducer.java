@@ -9,8 +9,8 @@ public class ConsumerProducer {
     public static void main(final String[] args) {
         Producer p = new Producer();
         Consumer c = new Consumer();
-        p.signal.connect(c, c::print);
-        p.signal.connect(c, c::printReverse);
+        p.signal.connect(c::print, c);
+        p.signal.connect(c::printReverse, c);
 
         new Thread(p::start).start();
         new Thread(c::run).start();

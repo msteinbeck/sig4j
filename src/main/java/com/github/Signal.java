@@ -108,9 +108,9 @@ public abstract class Signal {
         } else if (type == DIRECT) {
             direct.add(slot);
         } else if (type == JAVAFX) {
-            connect(JavaFXDispatcher.getInstance(), slot);
+            connect(slot, JavaFXDispatcher.getInstance());
         } else if (type == SWING) {
-            connect(SwingDispatcher.getInstance(), slot);
+            connect(slot, SwingDispatcher.getInstance());
         } else {
             queued.add(slot);
         }
@@ -120,16 +120,16 @@ public abstract class Signal {
      * Connects the given slot and actuates it within the thread context
      * of the given {@link SlotDispatcher} if the signal is emitted.
      *
-     * @param dispatcher The {@link SlotDispatcher} to use.
      * @param slot       The slot to connect.
+     * @param dispatcher The {@link SlotDispatcher} to use.
      * @throws IllegalArgumentException If {@code dispatcher} or
      *                      {@code slot} is null.
      */
-    protected void connect(final SlotDispatcher dispatcher, final Slot slot) {
-        if (dispatcher == null) {
-            throw new IllegalArgumentException("dispatcher is null");
-        } else if (slot == null) {
+    protected void connect(final Slot slot, final SlotDispatcher dispatcher) {
+        if (slot == null) {
             throw new IllegalArgumentException("slot is null");
+        } else if (dispatcher == null) {
+            throw new IllegalArgumentException("dispatcher is null");
         }
         dispatched.add(new DispatcherAssociation(dispatcher, slot));
     }

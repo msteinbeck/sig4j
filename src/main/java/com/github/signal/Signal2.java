@@ -29,11 +29,11 @@ public class Signal2<T, U> extends Signal {
     }
 
     /**
-     * @see Signal#connect(SlotDispatcher, Slot)
+     * @see Signal#connect(Slot, SlotDispatcher)
      */
-    public void connect(final SlotDispatcher dispatcher,
-                        final Slot2<T, U> slot) {
-        super.connect(dispatcher, slot);
+    public void connect(final Slot2<T, U> slot,
+                        final SlotDispatcher dispatcher) {
+        super.connect(slot, dispatcher);
     }
 
     /**
