@@ -1,12 +1,12 @@
 package com.github.sig4j.dispatcher;
 
+import com.github.sig4j.Dispatcher;
 import javafx.application.Platform;
-import com.github.sig4j.SlotDispatcher;
 
 /**
- * A {@link SlotDispatcher} for JavaFX events.
+ * A {@link Dispatcher} for JavaFX events.
  */
-public class JavaFXDispatcher extends SlotDispatcher {
+public class JavaFXDispatcher extends Dispatcher {
 
 	/**
 	 * The singleton instance.
@@ -20,7 +20,7 @@ public class JavaFXDispatcher extends SlotDispatcher {
 
 	/**
 	 * Returns the singleton instance. If no instance exists yet, a new one is
-	 * created and started using {@link SlotDispatcher#start()}.
+	 * created and started using {@link Dispatcher#start()}.
 	 *
 	 * @return The singleton instance.
 	 */

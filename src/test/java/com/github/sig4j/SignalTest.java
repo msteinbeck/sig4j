@@ -44,19 +44,19 @@ public class SignalTest {
         SignalProvider signalProvider = new SignalProvider();
         SlotProvider slotProvider = new SlotProvider();
         signalProvider.stringSignal1.connect(
-                slotProvider::stringSlot1, ConnectionType.DIRECT);
+                slotProvider::stringSlot1, Type.DIRECT);
     }
 
     @Test
     public void explicitDirectLambda() {
         SignalProvider signalProvider = new SignalProvider();
-        signalProvider.stringSignal1.connect(s -> {}, ConnectionType.DIRECT);
+        signalProvider.stringSignal1.connect(s -> {}, Type.DIRECT);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void explicitDirectNull() {
         SignalProvider signalProvider = new SignalProvider();
-        signalProvider.stringSignal1.connect(null, ConnectionType.DIRECT);
+        signalProvider.stringSignal1.connect(null, Type.DIRECT);
     }
 
 
@@ -66,19 +66,19 @@ public class SignalTest {
         SignalProvider signalProvider = new SignalProvider();
         SlotProvider slotProvider = new SlotProvider();
         signalProvider.stringSignal1.connect(
-                slotProvider::stringSlot1, ConnectionType.QUEUED);
+                slotProvider::stringSlot1, Type.QUEUED);
     }
 
     @Test
     public void queuedLambda() {
         SignalProvider signalProvider = new SignalProvider();
-        signalProvider.stringSignal1.connect(s -> {}, ConnectionType.QUEUED);
+        signalProvider.stringSignal1.connect(s -> {}, Type.QUEUED);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void queuedNull() {
         SignalProvider signalProvider = new SignalProvider();
-        signalProvider.stringSignal1.connect(null, ConnectionType.QUEUED);
+        signalProvider.stringSignal1.connect(null, Type.QUEUED);
     }
 
 

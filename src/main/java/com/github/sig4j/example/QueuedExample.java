@@ -1,7 +1,7 @@
 package com.github.sig4j.example;
 
 
-import com.github.sig4j.ConnectionType;
+import com.github.sig4j.Type;
 import com.github.sig4j.signal.Signal0;
 
 public class QueuedExample {
@@ -15,7 +15,7 @@ public class QueuedExample {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }, ConnectionType.QUEUED);
+        }, Type.QUEUED);
         a.signal.emit();
         System.out.println("this should be the first line");
         Thread.sleep(2000);

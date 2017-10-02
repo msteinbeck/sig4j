@@ -11,7 +11,7 @@ import com.github.sig4j.signal.Signal1;
 
 import java.util.Arrays;
 
-import static com.github.sig4j.ConnectionType.JAVAFX;
+import static com.github.sig4j.Type.JAVAFX;
 
 public class JavaFXExample extends Application {
 

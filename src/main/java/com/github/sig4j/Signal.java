@@ -9,9 +9,9 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.github.sig4j.ConnectionType.DIRECT;
-import static com.github.sig4j.ConnectionType.JAVAFX;
-import static com.github.sig4j.ConnectionType.SWING;
+import static com.github.sig4j.Type.DIRECT;
+import static com.github.sig4j.Type.JAVAFX;
+import static com.github.sig4j.Type.SWING;
 
 /**
  * The base class of all signals.
@@ -21,10 +21,9 @@ import static com.github.sig4j.ConnectionType.SWING;
  */
 public abstract class Signal {
     /**
-     * The {@link SlotDispatcher} of {@link ConnectionType#QUEUED} connected
-     * slots.
+     * The {@link Dispatcher} of {@link Type#QUEUED} connected slots.
      */
-    private static final SlotDispatcher DISPATCHER = new SlotDispatcher();
+    private static final Dispatcher DISPATCHER = new Dispatcher();
 
     static {
         DISPATCHER.start();
@@ -38,19 +37,19 @@ public abstract class Signal {
     private final AtomicBoolean enabled = new AtomicBoolean(true);
 
     /**
-     * The queue of {@link ConnectionType#DIRECT} connected slots.
+     * The queue of {@link Type#DIRECT} connected slots.
      */
     private Queue<Slot> direct = new ConcurrentLinkedDeque<>();
 
     /**
-     * The queue of {@link ConnectionType#QUEUED} connected slots.
+     * The queue of {@link Type#QUEUED} connected slots.
      */
     private Queue<Slot> queued = new ConcurrentLinkedDeque<>();
 
     /**
-     * The queue of dispatched slots {@see SlotDispatcher}.
+     * The queue of dispatched slots {@see Dispatcher}.
      */
-    private Queue<Entry<Slot, SlotDispatcher>>
+    private Queue<Entry<Slot, Dispatcher>>
             dispatched = new ConcurrentLinkedDeque<>();
 
     /**
@@ -85,8 +84,8 @@ public abstract class Signal {
     }
 
     /**
-     * Connects the given slot using {@link ConnectionType#DIRECT}. This
-     * function is equivalent to {@code connect(slot, ConnectionType.DIRECT)}.
+     * Connects the given slot using {@link Type#DIRECT}. This method is
+     * equivalent to {@code connect(slot, Type.DIRECT)}.
      *
      * @param slot The slot to connect.
      * @throws IllegalArgumentException If {@code slot} is null.
@@ -99,13 +98,13 @@ public abstract class Signal {
     }
 
     /**
-     * Connects the given slot according to {@link ConnectionType}.
+     * Connects the given slot according to {@link Type}.
      *
      * @param slot The slot to connect.
-     * @param type The {@link ConnectionType} to use.
+     * @param type The connection type.
      * @throws IllegalArgumentException If {@code slot} or {@code type} is null.
      */
-    protected void connect(final Slot slot, final ConnectionType type) {
+    protected void connect(final Slot slot, final Type type) {
         if (slot == null) {
             throw new IllegalArgumentException("slot is null");
         } else if (type == null) {
@@ -123,14 +122,14 @@ public abstract class Signal {
 
     /**
      * Connects the given slot and actuates it within the thread context
-     * of the given {@link SlotDispatcher} if the signal is emitted.
+     * of the given {@link Dispatcher} if the signal is emitted.
      *
      * @param slot       The slot to connect.
-     * @param dispatcher The {@link SlotDispatcher} to use.
+     * @param dispatcher The {@link Dispatcher} to use.
      * @throws IllegalArgumentException If {@code dispatcher} or
      *                      {@code slot} is null.
      */
-    protected void connect(final Slot slot, final SlotDispatcher dispatcher) {
+    protected void connect(final Slot slot, final Dispatcher dispatcher) {
         if (slot == null) {
             throw new IllegalArgumentException("slot is null");
         } else if (dispatcher == null) {

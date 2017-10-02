@@ -1,12 +1,12 @@
 package com.github.sig4j.dispatcher;
 
-import com.github.sig4j.SlotDispatcher;
+import com.github.sig4j.Dispatcher;
 import javax.swing.SwingUtilities;
 
 /**
- * A {@link SlotDispatcher} for Swing events.
+ * A {@link Dispatcher} for Swing events.
  */
-public class SwingDispatcher extends SlotDispatcher {
+public class SwingDispatcher extends Dispatcher {
 
 	/**
 	 * The singleton instance.
@@ -20,7 +20,7 @@ public class SwingDispatcher extends SlotDispatcher {
 
 	/**
 	 * Returns the singleton instance. If no instance exists yet, a new one is
-	 * created and started using {@link SlotDispatcher#start()}.
+	 * created and started using {@link Dispatcher#start()}.
 	 *
 	 * @return The singleton instance.
 	 */

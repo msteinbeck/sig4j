@@ -11,7 +11,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import java.awt.HeadlessException;
 
-import static com.github.sig4j.ConnectionType.SWING;
+import static com.github.sig4j.Type.SWING;
 
 public class SwingExample extends JFrame implements DocumentListener {
 

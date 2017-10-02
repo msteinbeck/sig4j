@@ -8,7 +8,7 @@ import java.util.concurrent.Semaphore;
 
 /**
  * This class is necessary to actuate slots connected with
- * {@link Signal#connect(Slot, SlotDispatcher)}, namely dispatched slots.
+ * {@link Signal#connect(Slot, Dispatcher)}, namely dispatched slots.
  *
  * A dispatched slot is actuated in a separate 'dispatcher' thread, e.g., the
  * GUI thread, the database thread, and so on. The idea is to periodically call
@@ -29,7 +29,7 @@ import java.util.concurrent.Semaphore;
  *
  * For examples, see {@link com.github.sig4j.dispatcher.JavaFXDispatcher}
  */
-public class SlotDispatcher implements Runnable {
+public class Dispatcher implements Runnable {
 
     /**
      * Is used to block the dispatcher thread until an associated signal has

@@ -1,6 +1,6 @@
 package com.github.sig4j.example;
 
-import com.github.sig4j.SlotDispatcher;
+import com.github.sig4j.Dispatcher;
 import com.github.sig4j.signal.Signal1;
 
 import java.util.Scanner;
@@ -28,7 +28,7 @@ public class ConsumerProducer {
         }
     }
 
-    private static final class Consumer extends SlotDispatcher {
+    private static final class Consumer extends Dispatcher {
         void print(final String input) {
             System.out.println(input);
         }

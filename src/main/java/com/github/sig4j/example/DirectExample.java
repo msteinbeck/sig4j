@@ -1,6 +1,6 @@
 package com.github.sig4j.example;
 
-import com.github.sig4j.ConnectionType;
+import com.github.sig4j.Type;
 import com.github.sig4j.signal.Signal0;
 
 public class DirectExample {
@@ -12,7 +12,7 @@ public class DirectExample {
 
         a.signal.connect(B::staticPrint);
         a.signal.connect(b0::dynamicPrint);
-        a.signal.connect(b1::dynamicPrint, ConnectionType.DIRECT);
+        a.signal.connect(b1::dynamicPrint, Type.DIRECT);
         a.signal.connect(() -> System.out.println("This is a Lambda"));
         a.signal.emit();
     }

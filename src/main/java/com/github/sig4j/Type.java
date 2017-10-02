@@ -3,12 +3,12 @@ package com.github.sig4j;
 /**
  * The enum of supported connection types.
  *
- * To actuate a slot by a dispatcher ({@link SlotDispatcher}) use
- * {@link Signal#connect(Slot, SlotDispatcher)}.
+ * To actuate a slot by a {@link Dispatcher} use
+ * {@link Signal#connect(Slot, Dispatcher)}.
  *
- * @see SlotDispatcher
+ * @see Dispatcher
  */
-public enum ConnectionType {
+public enum Type {
     /**
      * The slot is actuated within the thread context of the emitter.
      */

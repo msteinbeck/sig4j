@@ -1,9 +1,9 @@
 package com.github.sig4j.signal;
 
-import com.github.sig4j.ConnectionType;
+import com.github.sig4j.Dispatcher;
+import com.github.sig4j.Type;
 import com.github.sig4j.Signal;
 import com.github.sig4j.Slot;
-import com.github.sig4j.SlotDispatcher;
 import com.github.sig4j.slot.Slot2;
 
 /**
@@ -22,17 +22,17 @@ public class Signal2<T, U> extends Signal {
     }
 
     /**
-     * @see Signal#connect(Slot, ConnectionType)
+     * @see Signal#connect(Slot, Type)
      */
-    public void connect(final Slot2<T, U> slot, final ConnectionType type) {
+    public void connect(final Slot2<T, U> slot, final Type type) {
         super.connect(slot, type);
     }
 
     /**
-     * @see Signal#connect(Slot, SlotDispatcher)
+     * @see Signal#connect(Slot, Dispatcher)
      */
     public void connect(final Slot2<T, U> slot,
-                        final SlotDispatcher dispatcher) {
+                        final Dispatcher dispatcher) {
         super.connect(slot, dispatcher);
     }
 
