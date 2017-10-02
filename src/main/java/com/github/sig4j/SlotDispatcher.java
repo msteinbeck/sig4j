@@ -1,6 +1,6 @@
-package com.github;
+package com.github.sig4j;
 
-import com.github.signal.Signal1;
+import com.github.sig4j.signal.Signal1;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -8,7 +8,7 @@ import java.util.concurrent.Semaphore;
 
 /**
  * This class is necessary to actuate slots connected with
- * {@link Signal#connect(SlotDispatcher, Slot)}, namely dispatched slots.
+ * {@link Signal#connect(Slot, SlotDispatcher)}, namely dispatched slots.
  *
  * A dispatched slot is actuated in a separate 'dispatcher' thread, e.g., the
  * GUI thread, the database thread, and so on. The idea is to periodically call
@@ -27,7 +27,7 @@ import java.util.concurrent.Semaphore;
  * start (and stop) an arbitrary thread which executes {@link #run()} in its
  * context.
  *
- * For examples, see {@link com.github.dispatcher.JavaFXDispatcher}
+ * For examples, see {@link com.github.sig4j.dispatcher.JavaFXDispatcher}
  */
 public class SlotDispatcher implements Runnable {
 

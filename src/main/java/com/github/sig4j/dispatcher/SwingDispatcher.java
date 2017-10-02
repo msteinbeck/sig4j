@@ -1,6 +1,6 @@
-package com.github.dispatcher;
+package com.github.sig4j.dispatcher;
 
-import com.github.SlotDispatcher;
+import com.github.sig4j.SlotDispatcher;
 import javax.swing.SwingUtilities;
 
 /**

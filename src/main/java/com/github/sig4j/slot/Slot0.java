@@ -1,6 +1,6 @@
-package com.github.slot;
+package com.github.sig4j.slot;
 
-import com.github.Slot;
+import com.github.sig4j.Slot;
 
 import java.util.Objects;
 

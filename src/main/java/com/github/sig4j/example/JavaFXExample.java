@@ -1,4 +1,4 @@
-package com.github.example;
+package com.github.sig4j.example;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -7,11 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import com.github.signal.Signal1;
+import com.github.sig4j.signal.Signal1;
 
 import java.util.Arrays;
 
-import static com.github.ConnectionType.JAVAFX;
+import static com.github.sig4j.ConnectionType.JAVAFX;
 
 public class JavaFXExample extends Application {
 

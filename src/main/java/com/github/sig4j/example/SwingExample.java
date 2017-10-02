@@ -1,6 +1,6 @@
-package com.github.example;
+package com.github.sig4j.example;
 
-import com.github.signal.Signal1;
+import com.github.sig4j.signal.Signal1;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,7 +11,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import java.awt.HeadlessException;
 
-import static com.github.ConnectionType.SWING;
+import static com.github.sig4j.ConnectionType.SWING;
 
 public class SwingExample extends JFrame implements DocumentListener {
 
