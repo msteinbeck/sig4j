@@ -1,6 +1,5 @@
 package com.github.example;
 
-import com.github.ConnectionType;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -11,6 +10,8 @@ import javafx.stage.Stage;
 import com.github.signal.Signal1;
 
 import java.util.Arrays;
+
+import static com.github.ConnectionType.JAVAFX;
 
 public class JavaFXExample extends Application {
 
@@ -32,7 +33,7 @@ public class JavaFXExample extends Application {
 
 		final Label label = new Label();
 		// Remove `JAVAFX` to get FX exceptions
-		textChanged.connect(label::setText, ConnectionType.JAVAFX);
+		textChanged.connect(label::setText, JAVAFX);
 
 		final Pane root = new VBox();
 		root.getChildren().addAll(Arrays.asList(textField, label));

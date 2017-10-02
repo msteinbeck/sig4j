@@ -20,7 +20,7 @@ public class ConsumerProducer {
         public final Signal1<String> signal = new Signal1<>();
         private final Scanner scanner = new Scanner(System.in);
 
-        public void start() {
+        void start() {
             System.out.println("Write something:");
             while (true) {
                 signal.emit(scanner.nextLine());
@@ -29,11 +29,11 @@ public class ConsumerProducer {
     }
 
     private static final class Consumer extends SlotDispatcher {
-        public void print(final String input) {
+        void print(final String input) {
             System.out.println(input);
         }
 
-        public void printReverse(final String input) {
+        void printReverse(final String input) {
             System.out.println(new StringBuilder(input).reverse().toString());
         }
     }

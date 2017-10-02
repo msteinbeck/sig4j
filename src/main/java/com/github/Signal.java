@@ -7,6 +7,10 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static com.github.ConnectionType.DIRECT;
+import static com.github.ConnectionType.JAVAFX;
+import static com.github.ConnectionType.SWING;
+
 /**
  * The base class of all signals.
  *
@@ -101,11 +105,11 @@ public abstract class Signal {
             throw new IllegalArgumentException("slot is null");
         } else if (type == null) {
             throw new IllegalArgumentException("connection type is null");
-        } else if (type == ConnectionType.DIRECT) {
+        } else if (type == DIRECT) {
             direct.add(slot);
-        } else if (type == ConnectionType.JAVAFX) {
+        } else if (type == JAVAFX) {
             connect(JavaFXDispatcher.getInstance(), slot);
-        } else if (type == ConnectionType.SWING) {
+        } else if (type == SWING) {
             connect(SwingDispatcher.getInstance(), slot);
         } else {
             queued.add(slot);
@@ -190,7 +194,7 @@ public abstract class Signal {
             arguments = args;
         }
 
-        public void actuate() {
+        void actuate() {
             Signal.this.actuate(slot, arguments);
         }
     }

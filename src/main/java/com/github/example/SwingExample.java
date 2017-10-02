@@ -1,6 +1,5 @@
 package com.github.example;
 
-import com.github.ConnectionType;
 import com.github.signal.Signal1;
 
 import javax.swing.JFrame;
@@ -11,6 +10,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import java.awt.HeadlessException;
+
+import static com.github.ConnectionType.SWING;
 
 public class SwingExample extends JFrame implements DocumentListener {
 
@@ -24,7 +25,7 @@ public class SwingExample extends JFrame implements DocumentListener {
 		textField.getDocument().addDocumentListener(this);
 
 		final JLabel label = new JLabel();
-		textChanged.connect(label::setText, ConnectionType.SWING);
+		textChanged.connect(label::setText, SWING);
 
 		add(textField);
 		add(label);
