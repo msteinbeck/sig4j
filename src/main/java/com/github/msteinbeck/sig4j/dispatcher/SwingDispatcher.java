@@ -1,22 +1,22 @@
-package com.github.sig4j.dispatcher;
+package com.github.msteinbeck.sig4j.dispatcher;
 
-import com.github.sig4j.Dispatcher;
-import javafx.application.Platform;
+import com.github.msteinbeck.sig4j.Dispatcher;
+import javax.swing.SwingUtilities;
 
 /**
- * A {@link Dispatcher} for JavaFX events.
+ * A {@link Dispatcher} for Swing events.
  */
-public class JavaFXDispatcher extends Dispatcher {
+public class SwingDispatcher extends Dispatcher {
 
 	/**
 	 * The singleton instance.
 	 */
-	private static JavaFXDispatcher instance;
+	private static SwingDispatcher instance;
 
 	/**
 	 * Default constructor.
 	 */
-	private JavaFXDispatcher() {}
+	private SwingDispatcher() {}
 
 	/**
 	 * Returns the singleton instance. If no instance exists yet, a new one is
@@ -24,9 +24,9 @@ public class JavaFXDispatcher extends Dispatcher {
 	 *
 	 * @return The singleton instance.
 	 */
-	public static synchronized JavaFXDispatcher getInstance() {
+	public static synchronized SwingDispatcher getInstance() {
 		if (instance == null) {
-			instance = new JavaFXDispatcher();
+			instance = new SwingDispatcher();
 			instance.start();
 		}
 		return instance;
@@ -35,6 +35,6 @@ public class JavaFXDispatcher extends Dispatcher {
 	@Override
 	protected void switchContext() {
 		// do not call `super.switchContext();`!
-		Platform.runLater(this::dispatch);
+		SwingUtilities.invokeLater(this::dispatch);
 	}
 }

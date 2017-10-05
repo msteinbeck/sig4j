@@ -1,10 +1,10 @@
-package com.github.sig4j.signal;
+package com.github.msteinbeck.sig4j.signal;
 
-import com.github.sig4j.Type;
-import com.github.sig4j.Signal;
-import com.github.sig4j.Slot;
-import com.github.sig4j.Dispatcher;
-import com.github.sig4j.slot.Slot0;
+import com.github.msteinbeck.sig4j.Dispatcher;
+import com.github.msteinbeck.sig4j.Signal;
+import com.github.msteinbeck.sig4j.Slot;
+import com.github.msteinbeck.sig4j.slot.Slot0;
+import com.github.msteinbeck.sig4j.Type;
 
 /**
  * A signal with 0 arguments.

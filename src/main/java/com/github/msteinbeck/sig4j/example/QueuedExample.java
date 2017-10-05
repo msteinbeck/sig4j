@@ -1,8 +1,7 @@
-package com.github.sig4j.example;
+package com.github.msteinbeck.sig4j.example;
 
-
-import com.github.sig4j.Type;
-import com.github.sig4j.signal.Signal0;
+import com.github.msteinbeck.sig4j.signal.Signal0;
+import com.github.msteinbeck.sig4j.Type;
 
 public class QueuedExample {
 

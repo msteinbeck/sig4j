@@ -1,7 +1,7 @@
-package com.github.sig4j;
+package com.github.msteinbeck.sig4j;
 
-import com.github.sig4j.signal.Signal1;
-import com.github.sig4j.Signal.SlotActuation;
+import com.github.msteinbeck.sig4j.signal.Signal1;
+import com.github.msteinbeck.sig4j.Signal.SlotActuation;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -27,7 +27,7 @@ import java.util.concurrent.Semaphore;
  * start (and stop) an arbitrary thread which executes {@link #run()} in its
  * context.
  *
- * For examples, see {@link com.github.sig4j.dispatcher}.
+ * For examples, see {@link com.github.msteinbeck.sig4j.dispatcher}.
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class Dispatcher implements Runnable {

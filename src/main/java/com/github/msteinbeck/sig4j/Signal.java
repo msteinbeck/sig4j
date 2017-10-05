@@ -1,7 +1,7 @@
-package com.github.sig4j;
+package com.github.msteinbeck.sig4j;
 
-import com.github.sig4j.dispatcher.JavaFXDispatcher;
-import com.github.sig4j.dispatcher.SwingDispatcher;
+import com.github.msteinbeck.sig4j.dispatcher.JavaFXDispatcher;
+import com.github.msteinbeck.sig4j.dispatcher.SwingDispatcher;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
@@ -9,9 +9,9 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.github.sig4j.Type.DIRECT;
-import static com.github.sig4j.Type.JAVAFX;
-import static com.github.sig4j.Type.SWING;
+import static com.github.msteinbeck.sig4j.Type.DIRECT;
+import static com.github.msteinbeck.sig4j.Type.JAVAFX;
+import static com.github.msteinbeck.sig4j.Type.SWING;
 
 /**
  * The base class of all signals.

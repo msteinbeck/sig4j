@@ -1,4 +1,4 @@
-package com.github.sig4j;
+package com.github.msteinbeck.sig4j;
 
 /**
  * The enum of supported connection types.
