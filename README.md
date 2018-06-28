@@ -1,4 +1,4 @@
-# sig4j
+# Sig4j
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.msteinbeck/sig4j.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.msteinbeck/sig4j)
 
 Sig4j is a Java library for Qt like 
