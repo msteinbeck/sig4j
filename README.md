@@ -1,4 +1,6 @@
 # sig4j
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.msteinbeck/sig4j.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.msteinbeck/sig4j)
+
 Sig4j is a Java library for Qt like 
 [signals and slots](http://doc.qt.io/qt-4.8/signalsandslots.html) which uses the
 [FunctionalInterface](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html)
