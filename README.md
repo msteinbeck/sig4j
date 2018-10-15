@@ -29,7 +29,7 @@ public class Quickstart {
 ```
 
 Sig4j supports the following connection types:
-- Direkt: A slot is actuated within the thread context of the emitter.
+- Direct: A slot is actuated within the thread context of the emitter.
 - Queued: A slot is actuated by a global worker thread.
 - Dispatched: A slot is actuated by a custom dispatcher.
 - JavaFX: A slot is actuated by the JavaFX dispatcher thread.
