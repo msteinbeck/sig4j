@@ -51,7 +51,7 @@ public abstract class Signal {
 	 * The queue of dispatched slots {@see Dispatcher}.
 	 */
 	private Queue<Entry<Slot, Dispatcher>>
-            dispatched = new ConcurrentLinkedDeque<>();
+			dispatched = new ConcurrentLinkedDeque<>();
 
 	/**
 	 * Enables this signal.
@@ -101,7 +101,7 @@ public abstract class Signal {
 	 * @param slot The slot to connect.
 	 * @param type The connection type.
 	 * @throws IllegalArgumentException If {@code slot} or {@code type} is
-     * {@code null}.
+	 * {@code null}.
 	 */
 	protected void connect(final Slot slot, final Type type) {
 		if (slot == null) {
@@ -121,12 +121,12 @@ public abstract class Signal {
 
 	/**
 	 * Connects the given slot and actuates it within the thread context of the
-     * given {@link Dispatcher} if the signal is emitted.
+	 * given {@link Dispatcher} if the signal is emitted.
 	 *
 	 * @param slot The slot to connect.
 	 * @param dispatcher The {@link Dispatcher} to use.
 	 * @throws IllegalArgumentException If {@code slot} or {@code dispatcher}
-     * is {@code null}.
+	 * is {@code null}.
 	 */
 	protected void connect(final Slot slot, final Dispatcher dispatcher) {
 		if (slot == null) {
@@ -160,7 +160,7 @@ public abstract class Signal {
 	 * A callback method used for slot actuation.
 	 *
 	 * The implementer of this method does not need to create any threads, but
-     * cast down the given slot and actuate it with the given arguments.
+	 * cast down the given slot and actuate it with the given arguments.
 	 *
 	 * This method should not have any side effects to this class.
 	 *
