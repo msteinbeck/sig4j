@@ -29,7 +29,6 @@ import java.util.concurrent.Semaphore;
  *
  * For examples, see {@link com.github.msteinbeck.sig4j.dispatcher}.
  */
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class Dispatcher implements Runnable {
 
 	/**

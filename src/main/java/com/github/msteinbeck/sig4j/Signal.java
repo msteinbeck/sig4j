@@ -14,12 +14,9 @@ import static com.github.msteinbeck.sig4j.Type.JAVAFX;
 import static com.github.msteinbeck.sig4j.Type.SWING;
 
 /**
- * The base class of all signals.
- *
- * Note:
- *  Connecting and emitting slots concurrently is thread safe without blocking.
+ * The base class of all signals. Note: Connecting and emitting slots
+ * concurrently is thread-safe without blocking.
  */
-@SuppressWarnings("WeakerAccess")
 public abstract class Signal {
 	/**
 	 * The {@link Dispatcher} of {@link Type#QUEUED} connected slots.
