@@ -15,7 +15,7 @@ public class SignalTest {
 
 	private static class SlotProvider {
 		@SuppressWarnings("unused")
-        void stringSlot1(final String s) {}
+		void stringSlot1(final String s) {}
 	}
 
 
