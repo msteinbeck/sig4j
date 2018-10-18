@@ -5,6 +5,7 @@ import com.github.msteinbeck.sig4j.dispatcher.SwingDispatcher;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -83,12 +84,10 @@ public abstract class Signal {
 	 * equivalent to {@code connect(slot, Type.DIRECT)}.
 	 *
 	 * @param slot The slot to connect.
-	 * @throws IllegalArgumentException If {@code slot} is {@code null}.
+	 * @throws NullPointerException If {@code slot} is {@code null}.
 	 */
 	protected void connect(final Slot slot) {
-		if (slot == null) {
-			throw new IllegalArgumentException("slot is null");
-		}
+		Objects.requireNonNull(slot);
 		direct.add(slot);
 	}
 
@@ -97,15 +96,13 @@ public abstract class Signal {
 	 *
 	 * @param slot The slot to connect.
 	 * @param type The connection type.
-	 * @throws IllegalArgumentException If {@code slot} or {@code type} is
+	 * @throws NullPointerException If {@code slot} or {@code type} is
 	 * {@code null}.
 	 */
 	protected void connect(final Slot slot, final Type type) {
-		if (slot == null) {
-			throw new IllegalArgumentException("slot is null");
-		} else if (type == null) {
-			throw new IllegalArgumentException("connection type is null");
-		} else if (type == DIRECT) {
+		Objects.requireNonNull(slot);
+		Objects.requireNonNull(type);
+		if (type == DIRECT) {
 			direct.add(slot);
 		} else if (type == JAVAFX) {
 			connect(slot, JavaFXDispatcher.getInstance());
@@ -122,15 +119,12 @@ public abstract class Signal {
 	 *
 	 * @param slot The slot to connect.
 	 * @param dispatcher The {@link Dispatcher} to use.
-	 * @throws IllegalArgumentException If {@code slot} or {@code dispatcher}
-	 * is {@code null}.
+	 * @throws NullPointerException If {@code slot} or {@code dispatcher} is
+	 * {@code null}.
 	 */
 	protected void connect(final Slot slot, final Dispatcher dispatcher) {
-		if (slot == null) {
-			throw new IllegalArgumentException("slot is null");
-		} else if (dispatcher == null) {
-			throw new IllegalArgumentException("dispatcher is null");
-		}
+		Objects.requireNonNull(slot);
+		Objects.requireNonNull(dispatcher);
 		dispatched.add(new SimpleEntry<>(slot, dispatcher));
 	}
 
@@ -167,18 +161,37 @@ public abstract class Signal {
 	protected abstract void actuate(final Slot slot, final Object[] args);
 
 	/**
-	 * Represents a slot actuation. Use {@link #actuate()} to actuate the slot
-	 * with its arguments.
+	 * Stores a slot and its arguments and allows to actuate this slot with
+	 * {@link #actuate()}.
 	 */
 	class SlotActuation {
+
+		/**
+		 * The slot to actuate.
+		 */
 		private final Slot slot;
+
+		/**
+		 * The arguments to pass to {@link #slot}.
+		 */
 		private final Object[] arguments;
 
+		/**
+		 * Creates a new instance with given slot and arguments.
+		 *
+		 * @param s The slot to store.
+		 * @param args The arguments to store.
+		 * @throws NullPointerException If {@code s} or {@code args} is
+		 * {@code null} ({@code args} may contain {@code null} values though).
+		 */
 		private SlotActuation(final Slot s, final Object[] args) {
-			slot = s;
-			arguments = args;
+			slot = Objects.requireNonNull(s);
+			arguments = Objects.requireNonNull(args);
 		}
 
+		/**
+		 * Actuates {@link #slot} with its arguments {@link #arguments}.
+		 */
 		void actuate() {
 			Signal.this.actuate(slot, arguments);
 		}

@@ -32,7 +32,7 @@ public class SignalTest {
 		signalProvider.stringSignal1.connect(s -> {});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	public void implicitDirectNull() {
 		SignalProvider signalProvider = new SignalProvider();
 		signalProvider.stringSignal1.connect(null);
@@ -54,7 +54,7 @@ public class SignalTest {
 		signalProvider.stringSignal1.connect(s -> {}, Type.DIRECT);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	public void explicitDirectNull() {
 		SignalProvider signalProvider = new SignalProvider();
 		signalProvider.stringSignal1.connect(null, Type.DIRECT);
@@ -76,7 +76,7 @@ public class SignalTest {
 		signalProvider.stringSignal1.connect(s -> {}, Type.QUEUED);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	public void queuedNull() {
 		SignalProvider signalProvider = new SignalProvider();
 		signalProvider.stringSignal1.connect(null, Type.QUEUED);

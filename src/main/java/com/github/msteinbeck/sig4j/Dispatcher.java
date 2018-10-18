@@ -3,6 +3,7 @@ package com.github.msteinbeck.sig4j;
 import com.github.msteinbeck.sig4j.signal.Signal1;
 import com.github.msteinbeck.sig4j.Signal.SlotActuation;
 
+import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
@@ -59,12 +60,10 @@ public class Dispatcher implements Runnable {
 	 * gets actuated by the next call of {@link #dispatch()}.
 	 *
 	 * @param slotActuation The {@link SlotActuation} to add.
-	 * @throws IllegalArgumentException If {@code slotActuation} is null.
+	 * @throws NullPointerException If {@code slotActuation} is {@code null}.
 	 */
 	final void actuate(final Signal.SlotActuation slotActuation) {
-		if (slotActuation == null) {
-			throw new IllegalArgumentException("slot actuation is null");
-		}
+		Objects.requireNonNull(slotActuation);
 		slots.add(slotActuation);
 		semaphore.release();
 	}
@@ -84,7 +83,7 @@ public class Dispatcher implements Runnable {
 	/**
 	 * Polls the next {@link SlotActuation} from the event queue and actuates
 	 * it. Does nothing if the event queue is empty. This function will never
-	 * throw a {@link RuntimeException} but emit {@link #onError()}.
+	 * throw a {@link RuntimeException}, but emit {@link #onError()}.
 	 */
 	protected final void dispatch() {
 		try {
